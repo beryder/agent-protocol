@@ -6,6 +6,7 @@ from __future__ import annotations
 from fastapi import APIRouter
 
 from ..models import (
+    Any,
     ErrorResponse,
     Item,
     ListNamespaceResponse,
@@ -24,11 +25,11 @@ router = APIRouter(tags=["Store"])
 
 @router.put(
     "/store/items",
-    response_model=None,
+    response_model=Any,
     responses={"422": {"model": ErrorResponse}},
     tags=["Store"],
 )
-def put_item(body: StorePutRequest) -> Optional[ErrorResponse]:
+def put_item(body: StorePutRequest) -> Union[Any, ErrorResponse]:
     """
     Store or update an item.
     """
@@ -37,11 +38,11 @@ def put_item(body: StorePutRequest) -> Optional[ErrorResponse]:
 
 @router.delete(
     "/store/items",
-    response_model=None,
+    response_model=Any,
     responses={"422": {"model": ErrorResponse}},
     tags=["Store"],
 )
-def delete_item(body: StoreDeleteRequest) -> Optional[ErrorResponse]:
+def delete_item(body: StoreDeleteRequest) -> Union[Any, ErrorResponse]:
     """
     Delete an item.
     """
